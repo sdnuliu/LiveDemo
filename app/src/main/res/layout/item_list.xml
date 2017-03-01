@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_record_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="这里是标题这里是标题这里是标题这里是标题这里是标题这里是标题这里是标题这里是标题" />
+
+        <TextView
+            android:id="@+id/tv_record_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_record_title"
+            android:layout_below="@id/tv_record_title"
+            android:layout_marginTop="20dp"
+            android:text="播放:" />
+
+        <TextView
+            android:id="@+id/tv_record_play_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_record_title"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/tv_record_play"
+            android:text="20次" />
+
+        <TextView
+            android:id="@+id/tv_record_publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_record_title"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:text="2017年2月28日16:33:15" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">DWLiveDemo</string>
+    <string name="time_default">00：00</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="start">Start</string>
+
+    <string name="hw_codec_camera_streaming_txt">HW Codec Camera Streaming</string>
+    <string name="sw_codec_camera_streaming_txt">SW Codec Camera Streaming</string>
+    <string name="pure_audio_streaming_txt">Audio Streaming</string>
+
+    <string name="string_state_ready">READY</string>
+    <string name="string_state_preparing">PREPARING</string>
+    <string name="string_state_connecting">CONNECTING</string>
+    <string name="string_state_streaming">STREAMING</string>
+    <string name="string_state_netblocking">NETBLOCKING, STOPPING</string>
+    <string name="string_state_con_timeout">CONNECTION TIMEOUT</string>
+    <string name="title_activity_audio_streaming">AudioStreamingActivity</string>
+
+    <string name="flash_light_on">ON</string>
+    <string name="flash_light_off">OFF</string>
+    <string name="menu_settings">Settings</string>
+    
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+
+    <string name = "cm_not_start">主播未开启连麦功能</string>
+    <string name = "cm_applying">连麦申请中</string>
+
+    <string name = "cm_disconnect_video">挂断视频连麦</string>
+
+    <string name="pref_speakerphone_key">speakerphone_preference</string>
+    <string name="pref_speakerphone_title">Speakerphone.</string>
+    <string name="pref_speakerphone_dlg">Speakerphone.</string>
+    <string name="pref_speakerphone_default">auto</string>
+</resources>
