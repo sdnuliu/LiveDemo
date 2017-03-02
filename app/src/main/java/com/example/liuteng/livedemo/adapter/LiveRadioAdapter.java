@@ -16,7 +16,5 @@ public class LiveRadioAdapter extends MultiItemTypeAdapter<LiveBean> {
     public LiveRadioAdapter(Context context, List<LiveBean> datas) {
         super(context, datas);
         addItemViewDelegate(new RecentMeetingDelegate());
-        addItemViewDelegate(new EnrollMeetingDelegate());
-        addItemViewDelegate(new TitleDelegate());
     }
 }

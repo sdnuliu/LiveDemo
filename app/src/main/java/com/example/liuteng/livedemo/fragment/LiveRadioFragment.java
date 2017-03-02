@@ -59,17 +59,7 @@ public class LiveRadioFragment extends BaseFragment {
     }
 
     private void initDatas() {
-        LiveBean liveBean = new LiveBean();
-        liveBean.setType(0);
-        liveBean.setTitle("您的已报会议");
-        mDatas.add(liveBean);
-        liveBean = new LiveBean();
-        liveBean.setType(2);
-        mDatas.add(liveBean);
-        liveBean = new LiveBean();
-        liveBean.setType(0);
-        liveBean.setTitle("近期会议");
-        mDatas.add(liveBean);
+        LiveBean liveBean;
         for (int i = 0; i < 10; i++) {
             liveBean = new LiveBean();
             liveBean.setType(1);
