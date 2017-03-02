@@ -19,7 +19,7 @@ public class VideoClassroom extends AppCompatActivity {
     private ViewPager mViewPager;
     private MainFragmentPagerAdapter fragmentPagerAdapter;
     private String[] titles = {"直播大厅", "视频中心"};
-    private int[] images = {R.mipmap.home_selected, R.mipmap.home_normal};
+//    private int[] images = {R.mipmap.home_selected, R.mipmap.home_normal};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,9 @@ public class VideoClassroom extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 XlfLog.d("被选中的tab"+tab.getPosition());
                 View currentView = tab.getCustomView();
-                ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
+//                ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
                 TextView textView = (TextView) currentView.findViewById(R.id.tv_tab);
-                imageView.setImageResource(R.mipmap.home_selected);
+//                imageView.setImageResource(R.mipmap.home_selected);
                 textView.setTextColor(Color.RED);
             }
 
@@ -50,9 +50,9 @@ public class VideoClassroom extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 XlfLog.d("未被选中的tab"+tab.getPosition());
                 View currentView = tab.getCustomView();
-                ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
+//                ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
                 TextView textView = (TextView) currentView.findViewById(R.id.tv_tab);
-                imageView.setImageResource(R.mipmap.home_normal);
+//                imageView.setImageResource(R.mipmap.home_normal);
                 textView.setTextColor(Color.BLACK);
             }
 
@@ -65,9 +65,9 @@ public class VideoClassroom extends AppCompatActivity {
             TabLayout.Tab tab = mTabLayout.getTabAt(i);
             tab.setCustomView(R.layout.item_tab);
             View currentView = tab.getCustomView();
-            ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
+//            ImageView imageView = (ImageView) currentView.findViewById(R.id.iv_tab);
             TextView textView = (TextView) currentView.findViewById(R.id.tv_tab);
-            imageView.setImageResource(images[i]);
+//            imageView.setImageResource(images[i]);
             textView.setText(titles[i]);
             if (i==0)
                 textView.setTextColor(Color.RED);
