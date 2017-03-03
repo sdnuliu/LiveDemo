@@ -2,6 +2,8 @@ package com.example.liuteng.livedemo.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,8 +18,10 @@ import com.example.liuteng.livedemo.R;
 import com.example.liuteng.livedemo.adapter.LiveRadioAdapter;
 import com.example.liuteng.livedemo.base.BaseFragment;
 import com.example.liuteng.livedemo.bean.LiveBean;
+import com.example.liuteng.livedemo.model.LiveRecordInfo;
 import com.example.liuteng.livedemo.util.XlfLog;
 import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
@@ -39,9 +43,11 @@ public class LiveRadioFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
     private TextView mLoading;
     private LiveRadioAdapter mAdapter;
-    private List<LiveBean> mDatas = new ArrayList<>();
+    private List<LiveBean> mDatas;
     private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
     private LoadMoreWrapper mLoadMoreWrapper;
+    private Handler mhandler = new Handler(Looper.getMainLooper());
+    private LiveRecordInfo mLiveRecordInfo;
 
     @Override
     protected int getLayoutId() {
@@ -54,19 +60,28 @@ public class LiveRadioFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         bindViews();
         initDatas();
-        initViews();
-
     }
 
     private void initDatas() {
-        LiveBean liveBean;
-        for (int i = 0; i < 10; i++) {
-            liveBean = new LiveBean();
-            liveBean.setType(1);
-            liveBean.setPlayTimes(i + "");
-            mDatas.add(liveBean);
-        }
-        mLoading.setVisibility(View.GONE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mLiveRecordInfo = new LiveRecordInfo();
+                mDatas = mLiveRecordInfo.getLiveData();
+                mhandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mDatas == null || mDatas.size() == 0) {
+                            mLoading.setVisibility(View.VISIBLE);
+                            mLoading.setText("没有直播内容");
+                        } else {
+                            mLoading.setVisibility(View.GONE);
+                            initViews();
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 
     private void initViews() {
@@ -76,6 +91,29 @@ public class LiveRadioFragment extends BaseFragment {
         initHeaderAndFooter();
         initLoadMore();
         mRecyclerView.setAdapter(mLoadMoreWrapper);
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+               LiveBean liveBean=mDatas.get(position-1);
+                if (liveBean.getLiveMeetingBean().getMeetingType()==0){
+                    prepareMoveToLiveActivity();
+                }else{
+                    prepareMoveToAdvanceActivity();
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+    }
+
+    private void prepareMoveToAdvanceActivity() {
+    }
+
+    private void prepareMoveToLiveActivity() {
+
     }
 
     private void initLoadMore() {
@@ -85,26 +123,39 @@ public class LiveRadioFragment extends BaseFragment {
             @Override
             public void onLoadMoreRequested() {
                 XlfLog.d("执行到加载更多");
-                new Handler().postDelayed(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if (mDatas.size() > 40) {
-                            Toast.makeText(LiveRadioFragment.this.getContext(), "没有更多数据了", Toast.LENGTH_LONG).show();
-                            mLoadMoreWrapper.setLoadOver(true);
-                            mLoadMoreWrapper.notifyDataSetChanged();
+                        List<LiveBean> liveBeens = mLiveRecordInfo.getLiveData();
+                        if (liveBeens == null || liveBeens.size() == 0) {
+                            noMoreData();
                             return;
+                        } else {
+                            mDatas.addAll(liveBeens);
+                            if (mDatas.size() > 40) {
+                                noMoreData();
+                                return;
+                            }
+                            mhandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mLoadMoreWrapper.notifyDataSetChanged();
+                                }
+                            });
                         }
-                        LiveBean liveBean;
-                        int m = new Random().nextInt(10);
-                        for (int i = m; i < m + 10; i++) {
-                            liveBean = new LiveBean();
-                            liveBean.setType(1);
-                            liveBean.setPlayTimes(i + "");
-                            mDatas.add(liveBean);
-                        }
-                        mLoadMoreWrapper.notifyDataSetChanged();
                     }
-                }, 1500);
+                }).start();
+            }
+        });
+    }
+
+    private void noMoreData() {
+        mhandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(LiveRadioFragment.this.getContext(), "没有更多数据了", Toast.LENGTH_LONG).show();
+                mLoadMoreWrapper.setLoadOver(true);
+                mLoadMoreWrapper.notifyDataSetChanged();
             }
         });
     }
