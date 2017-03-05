@@ -1,15 +1,22 @@
 package com.example.liuteng.livedemo.fragment;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.liuteng.livedemo.R;
@@ -17,7 +24,9 @@ import com.example.liuteng.livedemo.adapter.LiveRadioAdapter;
 import com.example.liuteng.livedemo.base.BaseFragment;
 import com.example.liuteng.livedemo.bean.LiveBean;
 import com.example.liuteng.livedemo.util.XlfLog;
+import com.example.liuteng.livedemo.view.DefaultDialog;
 import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
@@ -76,6 +85,49 @@ public class LiveRadioFragment extends BaseFragment {
         initHeaderAndFooter();
         initLoadMore();
         mRecyclerView.setAdapter(mLoadMoreWrapper);
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                showMobileDialog();
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+    }
+
+    private void showMobileDialog() {
+        final DefaultDialog.Builder builder = new DefaultDialog.Builder(this.getContext());
+        builder.setTitle("请输入您报名时预留的手机号");
+        View defaultView=LayoutInflater.from(this.getContext()).inflate(R.layout.default_dialog,null);
+        final EditText telEt= (EditText) defaultView.findViewById(R.id.et_tel);
+        builder.setView(defaultView);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(LiveRadioFragment.this.getContext(), "取消被点击了", Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+               checkTel(telEt);
+            }
+        });
+        new DefaultDialog(builder).show();
+    }
+
+    private void checkTel(EditText telEt) {
+        if (TextUtils.isEmpty(telEt.getText().toString())){
+            Toast.makeText(this.getContext(),"手机号不能为空",Toast.LENGTH_LONG).show();
+            return;
+        }
+        ProgressDialog dialog = new ProgressDialog(LiveRadioFragment.this.getContext());
+        dialog.setMessage("验证中，请稍后");
+        dialog.show();
+        
     }
 
     private void initLoadMore() {
