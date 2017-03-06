@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/ll_apply"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="申请视频连麦"
+            android:id="@+id/btn_connect_video"
+            style="@style/cm_apply_btn" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_cm"
+        android:text="@string/cm_not_start"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:visibility="invisible"
+        android:text="挂断语音连麦"
+        android:id="@+id/btn_disconnect_cm"
+        android:layout_centerInParent="true"
+        style="@style/cm_disconnect_btn" />
+
+</RelativeLayout>

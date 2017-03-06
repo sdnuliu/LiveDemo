@@ -58,4 +58,11 @@ public class LiveRecordInfo {
         }
         return liveBeanList;
     }
+
+    public boolean checkTel(String s) {
+        if ("18518758281".equals(s)) {
+            return true;
+        }
+        return false;
+    }
 }
