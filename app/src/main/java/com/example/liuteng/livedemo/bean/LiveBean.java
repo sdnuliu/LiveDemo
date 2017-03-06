@@ -7,10 +7,40 @@ package com.example.liuteng.livedemo.bean;
 public class LiveBean {
     private int type;
     private String title;
-    private String state;
-    private String imageUrl;
-    private String publishDate;
-    private String playTimes;
+    private String pic;
+    private long date;
+    private int limitNumber;//剩余名额
+    private LiveMeetingBean liveMeetingBean;
+    private boolean isLiving;//正在直播
+
+    public boolean isLiving() {
+        return isLiving;
+    }
+
+    public void setLiving(boolean living) {
+        isLiving = living;
+    }
+
+    public class LiveMeetingBean {
+        private String lector;
+        private int meetingType;
+
+        public String getLector() {
+            return lector;
+        }
+
+        public void setLector(String lector) {
+            this.lector = lector;
+        }
+
+        public int getMeetingType() {
+            return meetingType;
+        }
+
+        public void setMeetingType(int meetingType) {
+            this.meetingType = meetingType;
+        }
+    }
 
     public int getType() {
         return type;
@@ -28,35 +58,35 @@ public class LiveBean {
         this.title = title;
     }
 
-    public String getState() {
-        return state;
+    public String getPic() {
+        return pic;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public long getDate() {
+        return date;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setDate(long date) {
+        this.date = date;
     }
 
-    public String getPublishDate() {
-        return publishDate;
+    public int getLimitNumber() {
+        return limitNumber;
     }
 
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
+    public void setLimitNumber(int limitNumber) {
+        this.limitNumber = limitNumber;
     }
 
-    public String getPlayTimes() {
-        return playTimes;
+    public LiveMeetingBean getLiveMeetingBean() {
+        return liveMeetingBean;
     }
 
-    public void setPlayTimes(String playTimes) {
-        this.playTimes = playTimes;
+    public void setLiveMeetingBean(LiveMeetingBean liveMeetingBean) {
+        this.liveMeetingBean = liveMeetingBean;
     }
 }

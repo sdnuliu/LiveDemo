@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.liuteng.livedemo">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".DemoApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".VideoClassroom">
@@ -17,6 +21,13 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".GuideActivity"></activity>
+        <activity
+            android:name=".LiveRoomActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

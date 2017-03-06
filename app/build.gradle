@@ -33,4 +33,6 @@ dependencies {
         exclude group: 'org.json', module: 'json'
         //        exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     }
+    // fresco
+    compile 'com.facebook.fresco:fresco:1.1.0'
 }
