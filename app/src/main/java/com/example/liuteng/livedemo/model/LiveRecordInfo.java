@@ -3,6 +3,7 @@ package com.example.liuteng.livedemo.model;
 import android.os.SystemClock;
 
 import com.example.liuteng.livedemo.bean.LiveBean;
+import com.example.liuteng.livedemo.bean.LiveMeetingBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,13 @@ public class LiveRecordInfo {
         LiveBean liveBean;
         for (int i = 0; i < 10; i++) {
             liveBean = new LiveBean();
+            liveBean.setLiveId(i+"");
             liveBean.setPic(pics[i]);
             liveBean.setLimitNumber(new Random().nextInt(100));
             liveBean.setDate(System.currentTimeMillis() - 100 * 100 * i);
             liveBean.setTitle(titles[new Random().nextInt(5)]);
             liveBean.setType(1);
-            LiveBean.LiveMeetingBean liveMeetingBean = new LiveBean().new LiveMeetingBean();
+            LiveMeetingBean liveMeetingBean =new LiveMeetingBean();
             if (i != 9) {
                 liveMeetingBean.setMeetingType(0);
                 liveMeetingBean.setLector(lectors[new Random().nextInt(5)]);
