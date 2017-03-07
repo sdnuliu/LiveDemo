@@ -8,7 +8,16 @@ public class RecordBean {
     private String previewPic;
     private String title;
     private int playTimes;
-    private String publishDate;
+    private long publishDate;
+    private String recordId;
+
+    public String getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(String recordId) {
+        this.recordId = recordId;
+    }
 
     public String getPreviewPic() {
         return previewPic;
@@ -34,11 +43,11 @@ public class RecordBean {
         this.playTimes = playTimes;
     }
 
-    public String getPublishDate() {
+    public long getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(String publishDate) {
+    public void setPublishDate(long publishDate) {
         this.publishDate = publishDate;
     }
 }

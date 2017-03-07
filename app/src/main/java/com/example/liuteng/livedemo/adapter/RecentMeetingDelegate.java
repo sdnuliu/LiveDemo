@@ -35,7 +35,7 @@ public class RecentMeetingDelegate implements com.zhy.adapter.recyclerview.base.
             holder.setText(R.id.tv_live_limit, "正在直播");
         } else {
             holder.setTextColor(R.id.tv_live_limit, Color.GRAY);
-            holder.setText(R.id.tv_live_limit, "剩余" + liveBean.getLimitNumber() + "名额");
+            holder.setText(R.id.tv_live_limit, "人气：" + liveBean.getPopularity());
         }
         holder.setText(R.id.tv_live_date, DateUtil.longToString(liveBean.getDate()));
         if (liveBean.getLiveMeetingBean().getMeetingType() == 1) {

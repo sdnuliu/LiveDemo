@@ -7,4 +7,10 @@
     <color name="chat_background">#dddddd</color>
     <color name="private_chat">#FF0000</color>
     <color name="public_chat">#000000</color>
+    <!--按压前的蓝色值-->
+    <color name="bule_normal">#297beb</color>
+    <!--按压后的蓝色值-->
+    <color name="bule_select">#0253c2</color>
+    <color name="f2f2f2">#f2f2f2</color>
+    <color name="ffffff">#ffffff</color>
 </resources>

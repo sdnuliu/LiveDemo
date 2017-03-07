@@ -16,6 +16,16 @@ public class LiveBean implements Parcelable {
     private int limitNumber;//剩余名额
     private LiveMeetingBean liveMeetingBean;
     private boolean isLiving;//正在直播
+    private String popularity;//人气
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
+    }
+
 
     public boolean isLiving() {
         return isLiving;
@@ -96,6 +106,7 @@ public class LiveBean implements Parcelable {
         dest.writeInt(this.limitNumber);
         dest.writeParcelable(this.liveMeetingBean, flags);
         dest.writeByte(this.isLiving ? (byte) 1 : (byte) 0);
+        dest.writeString(this.popularity);
     }
 
     public LiveBean() {
@@ -110,6 +121,7 @@ public class LiveBean implements Parcelable {
         this.limitNumber = in.readInt();
         this.liveMeetingBean = in.readParcelable(LiveMeetingBean.class.getClassLoader());
         this.isLiving = in.readByte() != 0;
+        this.popularity = in.readString();
     }
 
     public static final Parcelable.Creator<LiveBean> CREATOR = new Parcelable.Creator<LiveBean>() {
