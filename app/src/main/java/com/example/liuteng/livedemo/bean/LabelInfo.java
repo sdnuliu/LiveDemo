@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LabelInfo {
     private String labelType;
-    private List<String> labelItemList;
+    private List<LabelItem> labelItemList;
 
     public String getLabelType() {
         return labelType;
@@ -18,11 +18,11 @@ public class LabelInfo {
         this.labelType = labelType;
     }
 
-    public List<String> getLabelItemList() {
+    public List<LabelItem> getLabelItemList() {
         return labelItemList;
     }
 
-    public void setLabelItemList(List<String> labelItemList) {
+    public void setLabelItemList(List<LabelItem> labelItemList) {
         this.labelItemList = labelItemList;
     }
 }

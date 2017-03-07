@@ -182,13 +182,12 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
     private void showPopWindow(LabelInfo labelInfo) {
         if (labelInfo.getLabelItemList() == null || labelInfo.getLabelItemList().size() == 0) {
             noLabelInfo();
-        } else if (dropDownPopup != null && dropDownPopup.isShowing()) {
-            XlfLog.d("弹出框消失");
-            dropDownPopup.dismiss();
-            dropDownPopup = null;
         } else {
             XlfLog.d("该分类下有信息");
-            dropDownPopup = new DropdownPopupWindow(this.getContext(), mRecordSelectLl, labelInfo.getLabelItemList());
+            if (dropDownPopup == null) {
+                dropDownPopup = new DropdownPopupWindow(this.getContext(), mRecordSelectLl);
+            }
+            dropDownPopup.setData(labelInfo.getLabelItemList());
             dropDownPopup.showAsDropDown(mRecordSelectLl, 0, 0);
         }
     }
