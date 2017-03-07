@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baseadapter-recyclerview" />
             <option value="$PROJECT_DIR$/dwliveDemo" />
+            <option value="$PROJECT_DIR$/rxandroid" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -30,6 +30,7 @@ import com.bokecc.sdk.mobile.live.pojo.PublishInfo;
 import com.bokecc.sdk.mobile.live.pojo.RoomInfo;
 import com.bokecc.sdk.mobile.live.pojo.TemplateInfo;
 import com.bokecc.sdk.mobile.live.pojo.Viewer;
+import com.example.liuteng.livedemo.CourseAnnouncementActivity;
 import com.example.liuteng.livedemo.LiveRoomActivity;
 import com.example.liuteng.livedemo.R;
 import com.example.liuteng.livedemo.adapter.LiveRadioAdapter;
@@ -138,7 +139,7 @@ public class LiveRadioFragment extends BaseFragment {
                 if (liveBean.isLiving()) {
                     prepareMoveToLiveActivity();
                 } else {
-                    prepareMoveToAdvanceActivity();
+                    prepareMoveToAdvanceActivity(liveBean);
                 }
             }
 
@@ -150,7 +151,10 @@ public class LiveRadioFragment extends BaseFragment {
     }
 
 
-    private void prepareMoveToAdvanceActivity() {
+    private void prepareMoveToAdvanceActivity(LiveBean liveBean) {
+        Intent intent=new Intent(this.getContext(),CourseAnnouncementActivity.class);
+        intent.putExtra("courseInfo",liveBean);
+        startActivity(intent);
     }
 
     private void prepareMoveToLiveActivity() {

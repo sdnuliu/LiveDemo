@@ -1,14 +1,18 @@
 package com.example.liuteng.livedemo.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by liuteng on 2017/3/1.
  */
 
-public class LiveBean {
+public class LiveBean implements Parcelable {
     private int type;
     private String title;
     private String pic;
     private long date;
+    private String liveId;
     private int limitNumber;//剩余名额
     private LiveMeetingBean liveMeetingBean;
     private boolean isLiving;//正在直播
@@ -19,27 +23,6 @@ public class LiveBean {
 
     public void setLiving(boolean living) {
         isLiving = living;
-    }
-
-    public class LiveMeetingBean {
-        private String lector;
-        private int meetingType;
-
-        public String getLector() {
-            return lector;
-        }
-
-        public void setLector(String lector) {
-            this.lector = lector;
-        }
-
-        public int getMeetingType() {
-            return meetingType;
-        }
-
-        public void setMeetingType(int meetingType) {
-            this.meetingType = meetingType;
-        }
     }
 
     public int getType() {
@@ -89,4 +72,55 @@ public class LiveBean {
     public void setLiveMeetingBean(LiveMeetingBean liveMeetingBean) {
         this.liveMeetingBean = liveMeetingBean;
     }
+
+    public String getLiveId() {
+        return liveId;
+    }
+
+    public void setLiveId(String liveId) {
+        this.liveId = liveId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.type);
+        dest.writeString(this.title);
+        dest.writeString(this.pic);
+        dest.writeLong(this.date);
+        dest.writeString(this.liveId);
+        dest.writeInt(this.limitNumber);
+        dest.writeParcelable(this.liveMeetingBean, flags);
+        dest.writeByte(this.isLiving ? (byte) 1 : (byte) 0);
+    }
+
+    public LiveBean() {
+    }
+
+    protected LiveBean(Parcel in) {
+        this.type = in.readInt();
+        this.title = in.readString();
+        this.pic = in.readString();
+        this.date = in.readLong();
+        this.liveId = in.readString();
+        this.limitNumber = in.readInt();
+        this.liveMeetingBean = in.readParcelable(LiveMeetingBean.class.getClassLoader());
+        this.isLiving = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<LiveBean> CREATOR = new Parcelable.Creator<LiveBean>() {
+        @Override
+        public LiveBean createFromParcel(Parcel source) {
+            return new LiveBean(source);
+        }
+
+        @Override
+        public LiveBean[] newArray(int size) {
+            return new LiveBean[size];
+        }
+    };
 }
