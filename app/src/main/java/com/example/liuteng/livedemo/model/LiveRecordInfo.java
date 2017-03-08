@@ -102,8 +102,8 @@ public class LiveRecordInfo {
         LabelInfo lablInfo = new LabelInfo();
         lablInfo.setLabelType("仪器");
         List<LabelItem> labelItems = new ArrayList<>();
-        labelItems.add(new LabelItem(false,"色谱"));
-        labelItems.add(new LabelItem(false,"热分析"));
+        labelItems.add(new LabelItem(false,"色谱","http://www.instrument.com.cn/webinar/images/indexR.jpg"));
+        labelItems.add(new LabelItem(false,"热分析","http://www.instrument.com.cn/webinar/images/indexR.jpg"));
         labelItems.add(new LabelItem(false,"电镜"));
         labelItems.add(new LabelItem(false,"核磁"));
         labelItems.add(new LabelItem(false,"X射线仪器"));

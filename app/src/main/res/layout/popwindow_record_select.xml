@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                     android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:numColumns="2"
-                    android:scrollbars="none"></GridView>
+                    android:scrollbars="none" />
 
 
             </LinearLayout>
@@ -44,7 +44,7 @@
         <LinearLayout
             android:id="@+id/pop_liearlayout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/maxheight"
             android:orientation="horizontal">
 
@@ -52,10 +52,11 @@
                 android:id="@+id/yqz_reset_button_popwindow_special_performance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/yqz_filter_reset_selector"
                 android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
                 android:text="重置"
                 android:textSize="14sp" />
 
@@ -63,10 +64,11 @@
                 android:id="@+id/yqz_sure_button_popwindow_special_performance"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/yqz_filter_sure_selector"
                 android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
                 android:text="确定"
                 android:textColor="#ffffff"
                 android:textSize="14sp" />

@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="快速微生物学用于挑战实验"
-            android:textColor="@android:color/black"
             android:textSize="15sp" />
 
         <TextView

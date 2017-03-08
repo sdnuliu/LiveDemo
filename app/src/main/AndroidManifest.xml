@@ -31,6 +31,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity android:name=".CourseAnnouncementActivity" />
         <activity android:name=".CourseSignupActivity"/>
+        <activity android:name=".RecrodDetailActivity"/>
     </application>
 
 </manifest>

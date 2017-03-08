@@ -1,5 +1,7 @@
 package com.example.liuteng.livedemo.fragment;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -15,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.liuteng.livedemo.R;
+import com.example.liuteng.livedemo.RecrodDetailActivity;
 import com.example.liuteng.livedemo.base.BaseFragment;
 import com.example.liuteng.livedemo.bean.LabelInfo;
+import com.example.liuteng.livedemo.bean.LabelItem;
 import com.example.liuteng.livedemo.bean.RecordBean;
 import com.example.liuteng.livedemo.model.LiveRecordInfo;
 import com.example.liuteng.livedemo.util.DateUtil;
@@ -24,11 +28,15 @@ import com.example.liuteng.livedemo.util.XlfLog;
 import com.example.liuteng.livedemo.view.DropdownPopupWindow;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liuteng on 2017/2/28.
@@ -48,6 +56,11 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
     private LinearLayout mFirmsSelectLl;
     private LinearLayout mRecordSelectLl;
     private DropdownPopupWindow dropDownPopup;
+    private TextView mInstrumentShow;
+    private TextView mIndustryShow;
+    private TextView mExpertShow;
+    private TextView mFirmsShow;
+    private HashMap<String, LabelItem> selectItemMap = new HashMap<>();
     //    private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
 
     @Override
@@ -61,7 +74,16 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
         bindViews();
         initDatas();
+        initLabelDatas();
+    }
 
+    private void initLabelDatas() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                labelInfos = mRecordInfo.getLabelData();
+            }
+        }).start();
     }
 
     private void initDatas() {
@@ -71,7 +93,6 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
             public void run() {
                 mRecordInfo = new LiveRecordInfo();
                 mDatas = mRecordInfo.getRecrodData();
-                labelInfos = mRecordInfo.getLabelData();
                 mhandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -100,6 +121,20 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
                 ((SimpleDraweeView) holder.getView(R.id.sdv_record_pic)).setImageURI(s.getPreviewPic());
             }
         };
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                RecordBean recordBean = mDatas.get(position);
+                Intent intent = new Intent(RecordRadioFragment.this.getContext(), RecrodDetailActivity.class);
+                intent.putExtra("recordId", recordBean.getRecordId());
+                startActivity(intent);
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
 //        initHeaderAndFooter();
         initLoadMore();
         mRecyclerView.setAdapter(mLoadMoreWrapper);
@@ -163,6 +198,10 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
         mExpertSelectLl = find(R.id.ll_record_expert_select);
         mFirmsSelectLl = find(R.id.ll_record_firms_select);
         mRecordSelectLl = find(R.id.ll_record_select_title);
+        mInstrumentShow = find(R.id.tv_record_instrument_select);
+        mIndustryShow = find(R.id.tv_record_industry_select);
+        mExpertShow = find(R.id.tv_record_expert_select);
+        mFirmsShow = find(R.id.tv_record_firms_select);
         mInstrumentSelectLl.setOnClickListener(this);
         mIndustrySelectLl.setOnClickListener(this);
         mExpertSelectLl.setOnClickListener(this);
@@ -176,6 +215,18 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
                 LabelInfo instruments = labelInfos.get(0);
                 showPopWindow(instruments);
                 break;
+            case R.id.ll_record_industry_select:
+                LabelInfo industries = labelInfos.get(1);
+                showPopWindow(industries);
+                break;
+            case R.id.ll_record_expert_select:
+                LabelInfo experts = labelInfos.get(2);
+                showPopWindow(experts);
+                break;
+            case R.id.ll_record_firms_select:
+                LabelInfo firms = labelInfos.get(3);
+                showPopWindow(firms);
+                break;
         }
     }
 
@@ -187,8 +238,75 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
             if (dropDownPopup == null) {
                 dropDownPopup = new DropdownPopupWindow(this.getContext(), mRecordSelectLl);
             }
-            dropDownPopup.setData(labelInfo.getLabelItemList());
-            dropDownPopup.showAsDropDown(mRecordSelectLl, 0, 0);
+            dropDownPopup.setData(labelInfo);
+            dropDownPopup.showAsDropDown(mRecordSelectLl);
+            dropDownPopup.setOnSureClickListener(new DropdownPopupWindow.OnSureClickLister() {
+                @Override
+                public void onSureClick(LabelInfo type, LabelItem item) {
+                    XlfLog.d("选中的是" + type.getLabelType() + "---");
+                    XlfLog.d(item == null ? "item为空" : item.getLabelContent());
+                    if (item != null)
+                        selectItemMap.put(type.getLabelType(), item);
+                    else
+                        selectItemMap.remove(type.getLabelType());
+                    changeTextView(type, item);
+                    reloadData();
+                }
+            });
+        }
+    }
+
+    private void reloadData() {
+        mLoading.setText("加载中...");
+        mLoading.setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Iterator iter = selectItemMap.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    Object key = entry.getKey();
+                    LabelItem val = (LabelItem) entry.getValue();
+                    XlfLog.d("选中的" + key + "---" + val.getLabelContent());
+                }
+                List<RecordBean> recordBeans = mRecordInfo.getRecrodData();
+                mDatas.clear();
+                mDatas.addAll(recordBeans);
+                mhandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mLoading.setVisibility(View.GONE);
+                        mLoadMoreWrapper.notifyDataSetChanged();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void changeTextView(LabelInfo type, LabelItem item) {
+        switch (labelInfos.indexOf(type)) {
+            case 0:
+                changeView(mInstrumentShow, type, item);
+                break;
+            case 1:
+                changeView(mIndustryShow, type, item);
+                break;
+            case 2:
+                changeView(mExpertShow, type, item);
+                break;
+            case 3:
+                changeView(mFirmsShow, type, item);
+                break;
+        }
+    }
+
+    private void changeView(TextView view, LabelInfo type, LabelItem item) {
+        if (item == null) {
+            view.setText(type.getLabelType());
+            view.setTextColor(Color.parseColor("#6b6b6b"));
+        } else {
+            view.setText(item.getLabelContent());
+            view.setTextColor(Color.parseColor("#297beb"));
         }
     }
 
