@@ -7,6 +7,7 @@ import com.example.liuteng.livedemo.bean.LabelItem;
 import com.example.liuteng.livedemo.bean.LiveBean;
 import com.example.liuteng.livedemo.bean.LiveMeetingBean;
 import com.example.liuteng.livedemo.bean.RecordBean;
+import com.example.liuteng.livedemo.bean.RecordBelowBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,43 +103,62 @@ public class LiveRecordInfo {
         LabelInfo lablInfo = new LabelInfo();
         lablInfo.setLabelType("仪器");
         List<LabelItem> labelItems = new ArrayList<>();
-        labelItems.add(new LabelItem(false,"色谱","http://www.instrument.com.cn/webinar/images/indexR.jpg"));
-        labelItems.add(new LabelItem(false,"热分析","http://www.instrument.com.cn/webinar/images/indexR.jpg"));
-        labelItems.add(new LabelItem(false,"电镜"));
-        labelItems.add(new LabelItem(false,"核磁"));
-        labelItems.add(new LabelItem(false,"X射线仪器"));
-        labelItems.add(new LabelItem(false,"光谱"));
-        labelItems.add(new LabelItem(false,"质谱"));
+        labelItems.add(new LabelItem(false, "色谱", "http://www.instrument.com.cn/webinar/images/indexR.jpg"));
+        labelItems.add(new LabelItem(false, "热分析", "http://www.instrument.com.cn/webinar/images/indexR.jpg"));
+        labelItems.add(new LabelItem(false, "电镜"));
+        labelItems.add(new LabelItem(false, "核磁"));
+        labelItems.add(new LabelItem(false, "X射线仪器"));
+        labelItems.add(new LabelItem(false, "光谱"));
+        labelItems.add(new LabelItem(false, "质谱"));
         lablInfo.setLabelItemList(labelItems);
-        labelInfos.add(0,lablInfo);
+        labelInfos.add(0, lablInfo);
         lablInfo = new LabelInfo();
         lablInfo.setLabelType("行业");
         labelItems = new ArrayList<>();
-        labelItems.add(new LabelItem(false,"制药化妆品"));
-        labelItems.add(new LabelItem(false,"食品/饮料"));
-        labelItems.add(new LabelItem(false,"环境/水工业"));
-        labelItems.add(new LabelItem(false,"医疗/卫生"));
+        labelItems.add(new LabelItem(false, "制药化妆品"));
+        labelItems.add(new LabelItem(false, "食品/饮料"));
+        labelItems.add(new LabelItem(false, "环境/水工业"));
+        labelItems.add(new LabelItem(false, "医疗/卫生"));
         lablInfo.setLabelItemList(labelItems);
-        labelInfos.add(1,lablInfo);
+        labelInfos.add(1, lablInfo);
         lablInfo = new LabelInfo();
         lablInfo.setLabelType("专家");
         labelItems = new ArrayList<>();
-        labelItems.add(new LabelItem(false,"胡克平"));
-        labelItems.add(new LabelItem(false,"杨美华"));
-        labelItems.add(new LabelItem(false,"屈风"));
-        labelItems.add(new LabelItem(false,"张三"));
+        labelItems.add(new LabelItem(false, "胡克平"));
+        labelItems.add(new LabelItem(false, "杨美华"));
+        labelItems.add(new LabelItem(false, "屈风"));
+        labelItems.add(new LabelItem(false, "张三"));
         lablInfo.setLabelItemList(labelItems);
-        labelInfos.add(2,lablInfo);
+        labelInfos.add(2, lablInfo);
         lablInfo = new LabelInfo();
         lablInfo.setLabelType("厂商");
         labelItems = new ArrayList<>();
-        labelItems.add(new LabelItem(false,"岛津"));
-        labelItems.add(new LabelItem(false,"沃特世"));
-        labelItems.add(new LabelItem(false,"徕卡"));
-        labelItems.add(new LabelItem(false,"默克化工"));
-        labelItems.add(new LabelItem(false,"布鲁克"));
+        labelItems.add(new LabelItem(false, "岛津"));
+        labelItems.add(new LabelItem(false, "沃特世"));
+        labelItems.add(new LabelItem(false, "徕卡"));
+        labelItems.add(new LabelItem(false, "默克化工"));
+        labelItems.add(new LabelItem(false, "布鲁克"));
         lablInfo.setLabelItemList(labelItems);
-        labelInfos.add(3,lablInfo);
+        labelInfos.add(3, lablInfo);
         return labelInfos;
+    }
+
+    public RecordBelowBean getRecrodBelowData(String recordID) {
+        RecordBelowBean recordBelowBean;
+        recordBelowBean = new RecordBelowBean();
+        recordBelowBean.setTitle(recordTitles[new Random().nextInt(5)]);
+        recordBelowBean.setCollected(false);
+        recordBelowBean.setRecordBeens(getRecrodData());
+        recordBelowBean.setItems(getLabelItems());
+        return recordBelowBean;
+    }
+
+    private List<LabelItem> getLabelItems() {
+        List<LabelItem> items = new ArrayList<>();
+        items.add(new LabelItem(false, "核磁"));
+        items.add(new LabelItem(false, "制药化妆品"));
+        items.add(new LabelItem(false, "杨美华"));
+        items.add(new LabelItem(false, "默克化工"));
+        return items;
     }
 }

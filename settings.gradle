@@ -1,1 +1,1 @@
-include ':app', ':dwliveDemo', ':baseadapter-recyclerview', ':rxandroid', ':pushapp'
+include ':app', ':dwliveDemo', ':baseadapter-recyclerview', ':rxandroid', ':labelDemo'

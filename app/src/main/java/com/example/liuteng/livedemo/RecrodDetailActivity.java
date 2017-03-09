@@ -24,8 +24,10 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -49,7 +51,9 @@ import com.bokecc.sdk.mobile.download.Downloader;
 import com.bokecc.sdk.mobile.play.DWMediaPlayer;
 import com.example.liuteng.livedemo.base.BaseActivity;
 import com.example.liuteng.livedemo.bean.DownloadInfo;
+import com.example.liuteng.livedemo.bean.LabelItem;
 import com.example.liuteng.livedemo.bean.RecordBean;
+import com.example.liuteng.livedemo.bean.RecordBelowBean;
 import com.example.liuteng.livedemo.fragment.RecordRadioFragment;
 import com.example.liuteng.livedemo.model.LiveRecordInfo;
 import com.example.liuteng.livedemo.service.DownloadService;
@@ -82,6 +86,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import me.gujun.android.taggroup.TagGroup;
 
 /**
  * Created by liuteng on 2017/3/8.
@@ -162,6 +168,9 @@ public class RecrodDetailActivity extends BaseActivity implements
         }
     };
     private RecyclerView rvBelowInfo;
+    private TextView belowTitle;
+    private TagGroup label;
+    private RecordBelowBean belowBean;
 
     @Override
     public void initParms(Bundle parms) {
@@ -204,7 +213,8 @@ public class RecrodDetailActivity extends BaseActivity implements
             @Override
             public void run() {
                 mRecordInfo = new LiveRecordInfo();
-                mDatas = mRecordInfo.getRecrodData();
+                belowBean = mRecordInfo.getRecrodBelowData(recordID);
+                mDatas = belowBean.getRecordBeens();
                 mhandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -218,10 +228,20 @@ public class RecrodDetailActivity extends BaseActivity implements
     private void initBelowInfo() {
         rvBelowInfo.setLayoutManager(new LinearLayoutManager(this));
         rvBelowInfo.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mAdapter=new RecordBelowAdapter(this,mDatas);
+        mAdapter = new RecordBelowAdapter(this, mDatas);
         initHeaderAndFooter();
         initLoadMore();
         rvBelowInfo.setAdapter(mLoadMoreWrapper);
+    }
+
+    private int findMin(int[] firstPositions) {
+        int min = firstPositions[0];
+        for (int value : firstPositions) {
+            if (value < min) {
+                min = value;
+            }
+        }
+        return min;
     }
 
     private void initLoadMore() {
@@ -273,7 +293,15 @@ public class RecrodDetailActivity extends BaseActivity implements
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = null;
         try {
-            view = inflater.inflate(R.layout.record_below_head, null,false);
+            view = inflater.inflate(R.layout.record_below_head, null, false);
+            belowTitle = (TextView) view.findViewById(R.id.tv_below_title);
+            label = (TagGroup) view.findViewById(R.id.tag_group_beauty);
+            belowTitle.setText(belowBean.getTitle());
+            List<String> tags = new ArrayList<>();
+            for (LabelItem item : belowBean.getItems()) {
+                tags.add(item.getLabelContent());
+            }
+            label.setTags(tags);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -74,4 +74,10 @@
         <item name="android:textSize">12sp</item>
 
     </style>
+    <style name="TagGroup.Beauty_Blue" parent="TagGroup">
+        <item name="atg_borderColor">@color/colorPrimary</item>
+        <item name="atg_textColor">@color/colorPrimary</item>
+        <item name="atg_checkedBorderColor">@color/colorPrimary</item>
+        <item name="atg_checkedBackgroundColor">#FF3D7F</item>
+    </style>
 </resources>
