@@ -8,4 +8,10 @@
     <string name="pref_speakerphone_title">Speakerphone.</string>
     <string name="pref_speakerphone_dlg">Speakerphone.</string>
     <string name="pref_speakerphone_default">auto</string>
+    <string name="definition">清晰度</string>
+    <string name="subtitle">字幕</string>
+    <string name="speed">倍速</string>
+    <string name="close_ad">关闭广告</string>
+    <string name="ad_info">了解详情</string>
+    <string name="play">播放</string>
 </resources>

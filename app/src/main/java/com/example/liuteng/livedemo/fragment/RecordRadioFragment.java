@@ -42,6 +42,8 @@ import java.util.Map;
  * Created by liuteng on 2017/2/28.
  */
 public class RecordRadioFragment extends BaseFragment implements View.OnClickListener {
+    //TODO 待播放视频ID列表，可根据需求自定义
+    public static String[] playVideoIds = new String[] {"4ECB37B431858C689C33DC5901307461"};
     private RecyclerView mRecyclerView;
     private TextView mLoading;
     private CommonAdapter<RecordBean> mAdapter;
@@ -126,7 +128,7 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 RecordBean recordBean = mDatas.get(position);
                 Intent intent = new Intent(RecordRadioFragment.this.getContext(), RecrodDetailActivity.class);
-                intent.putExtra("recordId", recordBean.getRecordId());
+                intent.putExtra("recordId", "4ECB37B431858C689C33DC5901307461");
                 startActivity(intent);
             }
 
