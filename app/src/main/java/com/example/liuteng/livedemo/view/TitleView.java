@@ -20,6 +20,7 @@ public class TitleView extends RelativeLayout {
     private Context mContext;
     public TextView title;
     public ImageView shareView;
+    public TextView mRightTv;
 
     public TitleView(Context context) {
         super(context);
@@ -42,6 +43,7 @@ public class TitleView extends RelativeLayout {
         backIv = (ImageView) rootView.findViewById(R.id.iv_back);
         title = (TextView) rootView.findViewById(R.id.tv_common_title);
         shareView = (ImageView) rootView.findViewById(R.id.iv_share);
+        mRightTv = (TextView) rootView.findViewById(R.id.tv_right);
         backIv.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

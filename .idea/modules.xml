@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/baseadapter-recyclerview/baseadapter-recyclerview.iml" filepath="$PROJECT_DIR$/baseadapter-recyclerview/baseadapter-recyclerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/dwliveDemo/dwliveDemo.iml" filepath="$PROJECT_DIR$/dwliveDemo/dwliveDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/labelDemo/labelDemo.iml" filepath="$PROJECT_DIR$/labelDemo/labelDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pushapp/pushapp.iml" filepath="$PROJECT_DIR$/pushapp/pushapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxandroid/rxandroid.iml" filepath="$PROJECT_DIR$/rxandroid/rxandroid.iml" />
     </modules>
   </component>

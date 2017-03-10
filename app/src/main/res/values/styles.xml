@@ -80,4 +80,17 @@
         <item name="atg_checkedBorderColor">@color/colorPrimary</item>
         <item name="atg_checkedBackgroundColor">#FF3D7F</item>
     </style>
+
+    <style name="Signup_info_image">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="Signup_info_edittext">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 </resources>
