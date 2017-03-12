@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bokecc.sdk.mobile.live.DWLive;
@@ -26,6 +27,7 @@ import com.bokecc.sdk.mobile.live.pojo.Viewer;
 import com.example.liuteng.livedemo.CourseAnnouncementActivity;
 import com.example.liuteng.livedemo.LiveRoomActivity;
 import com.example.liuteng.livedemo.R;
+import com.example.liuteng.livedemo.SignedLecture;
 import com.example.liuteng.livedemo.adapter.LiveRadioAdapter;
 import com.example.liuteng.livedemo.base.BaseFragment;
 import com.example.liuteng.livedemo.bean.LiveBean;
@@ -260,6 +262,14 @@ public class LiveRadioFragment extends BaseFragment {
     private void initHeaderAndFooter() {
         mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(mAdapter);
         View view = LayoutInflater.from(this.getContext()).inflate(R.layout.live_head, mRecyclerView, false);
+        RelativeLayout mSignLecture= (RelativeLayout) view.findViewById(R.id.rl_my_lecture);
+        mSignLecture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LiveRadioFragment.this.getContext(),SignedLecture.class);
+                startActivity(intent);
+            }
+        });
         mHeaderAndFooterWrapper.addHeaderView(view);
     }
 

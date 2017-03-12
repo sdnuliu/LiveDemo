@@ -299,8 +299,11 @@ public class CourseSignupActivity extends BaseActivity {
             //注：不用管是否是一个问题的答案，就以答案的个数为准来提交上述格式的数据
             for (int i = 0; i < the_quesition_list.size(); i++) {
                 ArrayList<Answer> the_answer_list = the_quesition_list.get(i).getAnswers();
+                Quesition quesition= the_quesition_list.get(i);
                 //判断是否有题没答完
-                if (the_quesition_list.get(i).getQue_state() == 0 || the_quesition_list.get(i).getSelectedAnswer() == null || the_quesition_list.get(i).getSelectedAnswer().size() == 0) {
+                if(!"2".equals(quesition.getType())&&(
+                        quesition.getQue_state() == 0 || the_quesition_list.get(i).getSelectedAnswer() == null
+                                || the_quesition_list.get(i).getSelectedAnswer().size() == 0)) {
                     Toast.makeText(getApplicationContext(), "您第" + (i + 1) + "题没有答完", Toast.LENGTH_LONG).show();
                     jsonArray = null;
                     isState = false;
