@@ -1,11 +1,9 @@
 package com.example.liuteng.livedemo.model;
 
-import android.os.SystemClock;
-
 import com.example.liuteng.livedemo.bean.LabelInfo;
 import com.example.liuteng.livedemo.bean.LabelItem;
 import com.example.liuteng.livedemo.bean.LiveBean;
-import com.example.liuteng.livedemo.bean.LiveMeetingBean;
+import com.example.liuteng.livedemo.bean.MeetingBean;
 import com.example.liuteng.livedemo.bean.RecordBean;
 import com.example.liuteng.livedemo.bean.RecordBelowBean;
 
@@ -59,7 +57,7 @@ public class LiveRecordInfo {
             liveBean.setDate(System.currentTimeMillis() - 100 * 100 * i);
             liveBean.setTitle(titles[new Random().nextInt(5)]);
             liveBean.setType(1);
-            LiveMeetingBean liveMeetingBean = new LiveMeetingBean();
+            MeetingBean liveMeetingBean = new MeetingBean();
             if (i != 9) {
                 liveMeetingBean.setMeetingType(0);
                 liveMeetingBean.setLector(lectors[new Random().nextInt(5)]);

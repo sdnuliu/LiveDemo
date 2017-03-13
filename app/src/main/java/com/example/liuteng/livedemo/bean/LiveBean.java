@@ -14,7 +14,7 @@ public class LiveBean implements Parcelable {
     private long date;
     private String liveId;
     private int limitNumber;//剩余名额
-    private LiveMeetingBean liveMeetingBean;
+    private MeetingBean liveMeetingBean;
     private boolean isLiving;//正在直播
     private String popularity;//人气
 
@@ -75,11 +75,11 @@ public class LiveBean implements Parcelable {
         this.limitNumber = limitNumber;
     }
 
-    public LiveMeetingBean getLiveMeetingBean() {
+    public MeetingBean getLiveMeetingBean() {
         return liveMeetingBean;
     }
 
-    public void setLiveMeetingBean(LiveMeetingBean liveMeetingBean) {
+    public void setLiveMeetingBean(MeetingBean liveMeetingBean) {
         this.liveMeetingBean = liveMeetingBean;
     }
 
@@ -119,7 +119,7 @@ public class LiveBean implements Parcelable {
         this.date = in.readLong();
         this.liveId = in.readString();
         this.limitNumber = in.readInt();
-        this.liveMeetingBean = in.readParcelable(LiveMeetingBean.class.getClassLoader());
+        this.liveMeetingBean = in.readParcelable(MeetingBean.class.getClassLoader());
         this.isLiving = in.readByte() != 0;
         this.popularity = in.readString();
     }

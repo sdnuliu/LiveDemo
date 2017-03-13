@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by 刘腾 on 2017/3/6.
  */
 
-public class LiveMeetingBean implements Parcelable {
+public class MeetingBean implements Parcelable {
     private String lector;
     private int meetingType;
 
@@ -38,23 +38,23 @@ public class LiveMeetingBean implements Parcelable {
         dest.writeInt(this.meetingType);
     }
 
-    public LiveMeetingBean() {
+    public MeetingBean() {
     }
 
-    protected LiveMeetingBean(Parcel in) {
+    protected MeetingBean(Parcel in) {
         this.lector = in.readString();
         this.meetingType = in.readInt();
     }
 
-    public static final Parcelable.Creator<LiveMeetingBean> CREATOR = new Parcelable.Creator<LiveMeetingBean>() {
+    public static final Parcelable.Creator<MeetingBean> CREATOR = new Parcelable.Creator<MeetingBean>() {
         @Override
-        public LiveMeetingBean createFromParcel(Parcel source) {
-            return new LiveMeetingBean(source);
+        public MeetingBean createFromParcel(Parcel source) {
+            return new MeetingBean(source);
         }
 
         @Override
-        public LiveMeetingBean[] newArray(int size) {
-            return new LiveMeetingBean[size];
+        public MeetingBean[] newArray(int size) {
+            return new MeetingBean[size];
         }
     };
 }

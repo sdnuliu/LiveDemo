@@ -143,7 +143,7 @@ public class LiveRadioFragment extends BaseFragment {
 
     private void prepareMoveToAdvanceActivity(LiveBean liveBean) {
         Intent intent=new Intent(this.getContext(),CourseAnnouncementActivity.class);
-        intent.putExtra("courseInfo",liveBean);
+        intent.putExtra("courseInfoId",liveBean.getLiveId());
         startActivity(intent);
     }
 
