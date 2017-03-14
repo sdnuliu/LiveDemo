@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 public class Quesition {
     //题目id
-    private String quesitionId;
+    private int quesitionId;
     //单选多选填空标识
     private String type;
     //题目
@@ -36,10 +36,10 @@ public class Quesition {
         this.que_state = que_state;
     }
 
-    public String getQuesitionId() {
+    public int getQuesitionId() {
         return quesitionId;
     }
-    public void setQuesitionId(String quesitionId) {
+    public void setQuesitionId(int quesitionId) {
         this.quesitionId = quesitionId;
     }
     public String getType() {

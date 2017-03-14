@@ -8,132 +8,133 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/tv_course_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_course_title"
-        android:padding="8dp"
-        android:text="高分辨轨道阱质谱对果蔬食品中农药多残留高通量快速筛查的解决方案" />
-
     <RelativeLayout
-        android:id="@+id/rl_course_signup"
+        android:id="@+id/rl_course_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray">
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_course_title"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/tv_go_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="10dp"
-            android:text="马上报名" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/rl_course_signup"
-        android:layout_below="@id/tv_course_title">
-
-        <LinearLayout
+            android:id="@+id/tv_course_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="8dp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_course_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray">
+
+            <TextView
+                android:id="@+id/tv_go_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:text="马上报名" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rl_course_signup"
+            android:layout_below="@id/tv_course_title">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#CCFFFFFF"
-                android:orientation="vertical"
-                android:paddingBottom="20dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="会议信息" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:text="时间：2017年3月6日22:22:11"
-                    android:textSize="12sp" />
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="讲师:张三"
-                        android:textSize="12sp" />
+                    android:background="#CCFFFFFF"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="人气:222"
-                        android:textSize="12sp" />
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:text="会议信息" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_course_date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_course_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp">
+
+                        <TextView
+                            android:id="@+id/tv_course_teacher"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tv_course_popular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_course_teacher_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:text="张建莹，任职于深圳出入境检疫局食品检测中心， 从事食品
-            安全检测领域研究和实验室管理工作，有超过10年以
-            上农残分析经验与质谱使用经验。
-汪炯，赛默飞世尔公司液相色谱质谱联用应用工程师，致力
-于食品安全应用方法开发。" />
-            </LinearLayout>
+                    android:padding="8dp"
+                    android:text="内容信息" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="内容信息" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#CCFFFFFF"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="食品安全问题一直是关系到我国民生大计的重大问题。我国由于农药滥用严重导致食品的污染十分突出。深圳出入境检验检疫局肩负着保障内地与香港两地民众舌尖上安全的重要使命。2014年8月，香港食物安全中心颁布《食物内除害剂残余规例》，旨在加强规管除害剂残余，保障公众健康。规例共涵盖360种除害剂，亟需建立一种准确可靠的筛查定量方法。
-赛默飞公司所推出的高分辨轨道阱质谱有着高灵敏度、高分辨率、高质量精度、高通量等多重技术优势，对香港除害剂残余规例检测可提供完整解决方案。
-主讲内容：
-Part 1：
-l    香港除害剂残余规例与GB2763-2016的介绍与限量要求
-l    筛查法规的介绍与开展除害剂筛查项目的思路
-l    日常检测案例分享
-Part 2：
-l    高分辨轨道阱质谱在农残筛查应用上的优势
-l    高分辨液质筛查确证的流程
-l    完全未知化合物如何定性食品安全问题一直是关系到我国民生大计的重大问题。我国由于农药滥用严重导致食品的污染十分突出。深圳出入境检验检疫局肩负着保障内地与香港两地民众舌尖上安全的重要使命。2014年8月，香港食物安全中心颁布《食物内除害剂残余规例》，旨在加强规管除害剂残余，保障公众健康。规例共涵盖360种除害剂，亟需建立一种准确可靠的筛查定量方法。
-赛默飞公司所推出的高分辨轨道阱质谱有着高灵敏度、高分辨率、高质量精度、高通量等多重技术优势，对香港除害剂残余规例检测可提供完整解决方案。
-主讲内容：
-Part 1：
-l    香港除害剂残余规例与GB2763-2016的介绍与限量要求
-l    筛查法规的介绍与开展除害剂筛查项目的思路
-l    日常检测案例分享
-Part 2：
-l    高分辨轨道阱质谱在农残筛查应用上的优势
-l    高分辨液质筛查确证的流程
-l    完全未知化合物如何定性" />
+                    android:background="#CCFFFFFF"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_course_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerInParent="true"
+        android:visibility="visible" />
 </RelativeLayout>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class PageBean {
     //问卷id
-    private String pageId;
+    private int pageId;
     //问卷状态
     private String status;
     //问卷主题
@@ -24,10 +24,10 @@ public class PageBean {
         this.quesitions = quesitions;
     }
 
-    public String getPageId() {
+    public int getPageId() {
         return pageId;
     }
-    public void setPageId(String pageId) {
+    public void setPageId(int pageId) {
         this.pageId = pageId;
     }
     public String getStatus() {

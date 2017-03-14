@@ -36,4 +36,6 @@ dependencies {
     // fresco
     compile 'com.facebook.fresco:fresco:1.1.0'
     compile 'me.gujun.android.taggroup:library:1.4@aar'
+    compile 'com.lzy.net:okgo:+'
+    compile 'com.google.code.gson:gson:2.8.0'
 }

@@ -43,7 +43,7 @@ import java.util.Map;
  */
 public class RecordRadioFragment extends BaseFragment implements View.OnClickListener {
     //TODO 待播放视频ID列表，可根据需求自定义
-    public static String[] playVideoIds = new String[] {"4ECB37B431858C689C33DC5901307461"};
+    public static String[] playVideoIds = new String[]{"4ECB37B431858C689C33DC5901307461"};
     private RecyclerView mRecyclerView;
     private TextView mLoading;
     private CommonAdapter<RecordBean> mAdapter;
@@ -103,6 +103,7 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
                             mLoading.setText("没有直播内容");
                         } else {
                             mLoading.setVisibility(View.GONE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
                             initViews();
                         }
                     }

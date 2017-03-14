@@ -8,10 +8,10 @@
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/tv_signup_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:text="短发是的范德萨发斯蒂芬打算发大水发大水发士大夫是的发阿斯顿发大水"
         android:textSize="16sp" />
 
     <TextView
@@ -33,16 +33,16 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_signup_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="时间：2017年3月10日14:37:49"
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_signup_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="厂商会议"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -51,16 +51,16 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tv_signup_teacher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="讲师：张三"
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_signup_popular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="人气指数：8888"
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
@@ -89,8 +89,8 @@
 
             <EditText
                 android:id="@+id/et_signup_name"
-                android:hint="请输入姓名"
-                style="@style/Signup_info_edittext" />
+                style="@style/Signup_info_edittext"
+                android:hint="请输入姓名" />
         </LinearLayout>
 
         <LinearLayout
@@ -103,8 +103,8 @@
 
             <EditText
                 android:id="@+id/et_signup_tel"
-                android:hint="请输入座机号"
-                style="@style/Signup_info_edittext" />
+                style="@style/Signup_info_edittext"
+                android:hint="请输入座机号" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,8 +117,8 @@
 
             <EditText
                 android:id="@+id/et_signup_mobile"
-                android:hint="请输入手机号"
-                style="@style/Signup_info_edittext" />
+                style="@style/Signup_info_edittext"
+                android:hint="请输入手机号" />
         </LinearLayout>
 
         <LinearLayout
@@ -131,8 +131,8 @@
 
             <EditText
                 android:id="@+id/et_signup_company"
-                android:hint="请输入公司名"
-                style="@style/Signup_info_edittext" />
+                style="@style/Signup_info_edittext"
+                android:hint="请输入公司名" />
         </LinearLayout>
 
         <LinearLayout
@@ -145,8 +145,8 @@
 
             <EditText
                 android:id="@+id/et_signup_email"
-                android:hint="请输入邮箱"
-                style="@style/Signup_info_edittext" />
+                style="@style/Signup_info_edittext"
+                android:hint="请输入邮箱" />
         </LinearLayout>
     </LinearLayout>
 

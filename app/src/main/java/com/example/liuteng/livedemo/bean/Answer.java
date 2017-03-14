@@ -6,7 +6,7 @@ package com.example.liuteng.livedemo.bean;
 
 public class Answer {
     //答案id
-    private String answerId;
+    private int answerId;
     //答案主体
     private String answer_content;
     //答案是否被解答
@@ -18,10 +18,10 @@ public class Answer {
     public void setAns_state(int ans_state) {
         this.ans_state = ans_state;
     }
-    public String getAnswerId() {
+    public int getAnswerId() {
         return answerId;
     }
-    public void setAnswerId(String answerId) {
+    public void setAnswerId(int answerId) {
         this.answerId = answerId;
     }
     public String getAnswer_content() {

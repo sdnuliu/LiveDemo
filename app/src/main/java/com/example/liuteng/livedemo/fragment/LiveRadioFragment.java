@@ -93,6 +93,11 @@ public class LiveRadioFragment extends BaseFragment {
         initDatas();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     private void initDatas() {
         new Thread(new Runnable() {
             @Override
@@ -107,6 +112,7 @@ public class LiveRadioFragment extends BaseFragment {
                             mLoading.setText("没有直播内容");
                         } else {
                             mLoading.setVisibility(View.GONE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
                             initViews();
                         }
                     }
@@ -142,8 +148,8 @@ public class LiveRadioFragment extends BaseFragment {
 
 
     private void prepareMoveToAdvanceActivity(LiveBean liveBean) {
-        Intent intent=new Intent(this.getContext(),CourseAnnouncementActivity.class);
-        intent.putExtra("courseInfoId",liveBean.getLiveId());
+        Intent intent = new Intent(this.getContext(), CourseAnnouncementActivity.class);
+        intent.putExtra("courseInfoId", liveBean.getLiveId());
         startActivity(intent);
     }
 
@@ -192,7 +198,7 @@ public class LiveRadioFragment extends BaseFragment {
                     dialog.dismiss();
                 }
                 if (isSignUp) {
-                    dwLive.setDWLiveLoginParams(dwLiveLoginListener, true, "D9180EE599D5BD46", "D2ACF9FDA4D4E2F79C33DC5901307461", "testAndroid","111111");
+                    dwLive.setDWLiveLoginParams(dwLiveLoginListener, true, "D9180EE599D5BD46", "D2ACF9FDA4D4E2F79C33DC5901307461", "testAndroid", "111111");
                     dwLive.startLogin();
                 } else {
                     mhandler.post(new Runnable() {
@@ -262,11 +268,11 @@ public class LiveRadioFragment extends BaseFragment {
     private void initHeaderAndFooter() {
         mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(mAdapter);
         View view = LayoutInflater.from(this.getContext()).inflate(R.layout.live_head, mRecyclerView, false);
-        RelativeLayout mSignLecture= (RelativeLayout) view.findViewById(R.id.rl_my_lecture);
+        RelativeLayout mSignLecture = (RelativeLayout) view.findViewById(R.id.rl_my_lecture);
         mSignLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LiveRadioFragment.this.getContext(),SignedLecture.class);
+                Intent intent = new Intent(LiveRadioFragment.this.getContext(), SignedLecture.class);
                 startActivity(intent);
             }
         });
@@ -274,8 +280,8 @@ public class LiveRadioFragment extends BaseFragment {
     }
 
     private void bindViews() {
-        mRecyclerView = find(R.id.mRecyclerView);
         mLoading = find(R.id.tv_load);
+        mRecyclerView = find(R.id.mRecyclerView);
     }
 
 }

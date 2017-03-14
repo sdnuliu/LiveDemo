@@ -23,9 +23,12 @@ import android.widget.Toast;
 
 import com.example.liuteng.livedemo.base.BaseActivity;
 import com.example.liuteng.livedemo.bean.Answer;
+import com.example.liuteng.livedemo.bean.CourseDetailBean;
 import com.example.liuteng.livedemo.bean.PageBean;
 import com.example.liuteng.livedemo.bean.Quesition;
+import com.example.liuteng.livedemo.bean.serverbean.QAResponse;
 import com.example.liuteng.livedemo.model.QuestionnaireInfo;
+import com.example.liuteng.livedemo.util.DateUtil;
 import com.example.liuteng.livedemo.util.XlfLog;
 import com.example.liuteng.livedemo.view.TitleView;
 
@@ -65,9 +68,21 @@ public class CourseSignupActivity extends BaseActivity {
     private EditText mCompanyEt;
     private EditText mEmailEt;
     private EditText etAnswer;
+    private CourseDetailBean courseDetailBean;
+    private TextView signUpTitle;
+    private TextView signUpData;
+    private TextView signUpType;
+    private TextView signUpTeacher;
+    private TextView signUpPopular;
+    private static final String MUL_SELECT = "CheckBox";
+    private static final String SINGLE_SELECT = "Radio";
+    private static final String TEXT_SELECT = "Text";
 
     @Override
     public void initParms(Bundle parms) {
+        if (parms != null) {
+            courseDetailBean = (CourseDetailBean) parms.get("courseInfo");
+        }
 
     }
 
@@ -84,11 +99,27 @@ public class CourseSignupActivity extends BaseActivity {
         mMobileEt = $(R.id.et_signup_mobile);
         mCompanyEt = $(R.id.et_signup_company);
         mEmailEt = $(R.id.et_signup_email);
+        signUpTitle = $(R.id.tv_signup_title);
+        signUpData = $(R.id.tv_signup_date);
+        signUpType = $(R.id.tv_signup_type);
+        signUpTeacher = $(R.id.tv_signup_teacher);
+        signUpPopular = $(R.id.tv_signup_popular);
+        initCourseInfo();
         mTitleView.title.setText("报名");
         mTitleView.mRightTv.setVisibility(View.VISIBLE);
         mTitleView.mRightTv.setText("提交");
         mTitleView.mRightTv.setOnClickListener(new submitOnClickListener(the_page));
         xInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    private void initCourseInfo() {
+        if (courseDetailBean != null) {
+            signUpTitle.setText(courseDetailBean.getTitle());
+            signUpData.setText("时间：" + DateUtil.longToString(courseDetailBean.getTime()));
+            signUpType.setText(courseDetailBean.getType());
+            signUpTeacher.setText("讲师：" + courseDetailBean.getLecture());
+            signUpPopular.setText("人气：" + courseDetailBean.getPopular());
+        }
     }
 
     @Override
@@ -99,8 +130,18 @@ public class CourseSignupActivity extends BaseActivity {
 
     private void initDate() {
         QuestionnaireInfo info = new QuestionnaireInfo();
-        the_page = info.getQuestionInfo();
-        initPage(the_page);
+        info.getQuestionInfo("2234", new QuestionnaireInfo.QuesinfoResponse() {
+            @Override
+            public void onSussess(PageBean qaResponse) {
+                the_page = qaResponse;
+                initPage(the_page);
+            }
+
+            @Override
+            public void failed(String message) {
+                Snackbar.make(mTitleView, "问卷信息获取失败", Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initPage(PageBean the_page) {
@@ -117,13 +158,14 @@ public class CourseSignupActivity extends BaseActivity {
             //这是第三层布局要加入的地方
             LinearLayout add_layout = (LinearLayout) que_view.findViewById(R.id.lly_answer);
             //判断单选-多选来实现后面是*号还是*多选，
-            if (the_quesition_list.get(i).getType().equals("1")) {
+            Quesition quesition = the_quesition_list.get(i);
+            if (quesition.getType().equals(MUL_SELECT)) {
                 set(txt_que, the_quesition_list.get(i).getContent(), 1);
             } else {
                 set(txt_que, the_quesition_list.get(i).getContent(), 0);
             }
-            Quesition quesition = the_quesition_list.get(i);
-            if ("2".equals(quesition.getType())) {
+
+            if (TEXT_SELECT.equals(quesition.getType())) {
                 final Quesition ques = quesition;
                 ans_view = xInflater.inflate(R.layout.answer_special_layout, null);
                 etAnswer = (EditText) ans_view.findViewById(R.id.et_answer);
@@ -162,7 +204,7 @@ public class CourseSignupActivity extends BaseActivity {
                         line_view.setVisibility(View.GONE);
                     }
                     //判断单选多选加载不同选项图片
-                    if (the_quesition_list.get(i).getType().equals("1")) {
+                    if (the_quesition_list.get(i).getType().equals(MUL_SELECT)) {
                         image.setImageResource(R.drawable.multiselect_false);
                     } else {
                         image.setImageResource(R.drawable.radio_false);
@@ -190,7 +232,8 @@ public class CourseSignupActivity extends BaseActivity {
         //为了加载问题后面的* 和*多选
         String w;
         if (type == 1) {
-            w = content + "*[多选题]";
+//            w = content + "*[多选题]";
+            w = content;
         } else {
             w = content + "*";
         }
@@ -236,7 +279,7 @@ public class CourseSignupActivity extends BaseActivity {
             }
             Log.e("----", "点击了---"+imglist.get(i).get(j));*/
             XlfLog.d("被点击了" + the_answer_lists.get(j).toString());
-            if (the_quesition_list.get(i).getType().equals("1")) {
+            if (the_quesition_list.get(i).getType().equals(MUL_SELECT)) {
                 //多选
                 if (the_answer_lists.get(j).getAns_state() == 0) {
                     //如果未被选中
@@ -299,16 +342,16 @@ public class CourseSignupActivity extends BaseActivity {
             //注：不用管是否是一个问题的答案，就以答案的个数为准来提交上述格式的数据
             for (int i = 0; i < the_quesition_list.size(); i++) {
                 ArrayList<Answer> the_answer_list = the_quesition_list.get(i).getAnswers();
-                Quesition quesition= the_quesition_list.get(i);
+                Quesition quesition = the_quesition_list.get(i);
                 //判断是否有题没答完
-                if(!"2".equals(quesition.getType())&&(
+                if (!TEXT_SELECT.equals(quesition.getType()) && (
                         quesition.getQue_state() == 0 || the_quesition_list.get(i).getSelectedAnswer() == null
                                 || the_quesition_list.get(i).getSelectedAnswer().size() == 0)) {
                     Toast.makeText(getApplicationContext(), "您第" + (i + 1) + "题没有答完", Toast.LENGTH_LONG).show();
                     jsonArray = null;
                     isState = false;
                     break;
-                } else if ("2".equals(the_quesition_list.get(i).getType())) {
+                } else if (TEXT_SELECT.equals(the_quesition_list.get(i).getType())) {
                     JSONObject json = new JSONObject();
                     try {
                         json.put("psychologicalId", the_page.getPageId());
