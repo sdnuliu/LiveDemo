@@ -75,6 +75,7 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bindViews();
+        mRecordInfo = new LiveRecordInfo();
         initDatas();
         initLabelDatas();
     }
@@ -93,7 +94,6 @@ public class RecordRadioFragment extends BaseFragment implements View.OnClickLis
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mRecordInfo = new LiveRecordInfo();
                 mDatas = mRecordInfo.getRecrodData();
                 mhandler.post(new Runnable() {
                     @Override
