@@ -118,7 +118,7 @@ public class OverLectureFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                XlfLog.d("点击位置："+position+"头部的个数："+mHeaderAndFooterWrapper.getHeadersCount());
+                XlfLog.d("点击位置：" + position + "头部的个数：" + mHeaderAndFooterWrapper.getHeadersCount());
                 EndLectureBean lectureBean = mDatas.get(position - mHeaderAndFooterWrapper.getHeadersCount());
                 if (lectureBean.isAllowRewatch()) {
                     moveToRecordActivity(lectureBean);
@@ -163,7 +163,8 @@ public class OverLectureFragment extends BaseFragment {
 
     private void initLoadMore() {
         mLoadMoreWrapper = new LoadMoreWrapper(mHeaderAndFooterWrapper);
-        mLoadMoreWrapper.setLoadMoreView(LayoutInflater.from(this.getContext()).inflate(R.layout.default_loading, mRecyclerView, false));
+        mLoadMoreWrapper.setLoadMoreView(LayoutInflater.from(this.getContext()).inflate(R.layout.default_loading,
+                mRecyclerView, false));
         mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -210,15 +211,15 @@ public class OverLectureFragment extends BaseFragment {
         if (CommonSharePreference.get("hasCancelEndHint", false)) {
             return;
         } else {
-            final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.end_lecture_head, mRecyclerView, false);
+            final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.end_lecture_head,
+                    mRecyclerView, false);
+            final RelativeLayout rlContainer = (RelativeLayout) view.findViewById(R.id.rl_container);
             ImageView cancelHintTv = (ImageView) view.findViewById(R.id.tv_cacel_hint);
             cancelHintTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     CommonSharePreference.set("hasCancelEndHint", true);
-                    view.setVisibility(View.GONE);
-                    mHeaderAndFooterWrapper.removeAllHeadView();
-                    mHeaderAndFooterWrapper.notifyDataSetChanged();
+                    rlContainer.setVisibility(View.GONE);
                 }
             });
             mHeaderAndFooterWrapper.addHeaderView(view);

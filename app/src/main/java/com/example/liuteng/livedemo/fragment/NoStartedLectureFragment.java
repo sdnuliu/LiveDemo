@@ -149,13 +149,15 @@ public class NoStartedLectureFragment extends BaseFragment {
     }
 
     private void moveToLiveActivity() {
-        dwLive.setDWLiveLoginParams(dwLiveLoginListener, true, "D9180EE599D5BD46", "D2ACF9FDA4D4E2F79C33DC5901307461", "testAndroid", "111111");
+        dwLive.setDWLiveLoginParams(dwLiveLoginListener, true, "D9180EE599D5BD46",
+                "D2ACF9FDA4D4E2F79C33DC5901307461", "testAndroid", "111111");
         dwLive.startLogin();
     }
 
     private void initLoadMore() {
         mLoadMoreWrapper = new LoadMoreWrapper(mHeaderAndFooterWrapper);
-        mLoadMoreWrapper.setLoadMoreView(LayoutInflater.from(this.getContext()).inflate(R.layout.default_loading, mRecyclerView, false));
+        mLoadMoreWrapper.setLoadMoreView(LayoutInflater.from(this.getContext()).inflate(R.layout.default_loading,
+                mRecyclerView, false));
         mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -202,18 +204,18 @@ public class NoStartedLectureFragment extends BaseFragment {
         if (CommonSharePreference.get("hasCancelUnStartHint", false)) {
             return;
         } else {
-            final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.unstarted_lecture_head, mRecyclerView, false);
-            ImageView cancelHintTv = (ImageView) view.findViewById(R.id.tv_cacel_hint);
-            cancelHintTv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CommonSharePreference.set("hasCancelUnStartHint", true);
-                    view.setVisibility(View.GONE);
-                    mHeaderAndFooterWrapper.removeAllHeadView();
-                    mHeaderAndFooterWrapper.notifyDataSetChanged();
-                }
-            });
-            mHeaderAndFooterWrapper.addHeaderView(view);
+        final View view = LayoutInflater.from(this.getContext()).inflate(R.layout.unstarted_lecture_head,
+                mRecyclerView, false);
+        final RelativeLayout rlContainer = (RelativeLayout) view.findViewById(R.id.rl_container);
+        ImageView cancelHintTv = (ImageView) view.findViewById(R.id.tv_cacel_hint);
+        cancelHintTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonSharePreference.set("hasCancelUnStartHint", true);
+                rlContainer.setVisibility(View.GONE);
+            }
+        });
+        mHeaderAndFooterWrapper.addHeaderView(view);
         }
     }
 

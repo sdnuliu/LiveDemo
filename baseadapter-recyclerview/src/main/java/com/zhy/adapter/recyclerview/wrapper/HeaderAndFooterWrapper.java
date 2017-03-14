@@ -3,6 +3,7 @@ package com.zhy.adapter.recyclerview.wrapper;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -147,8 +148,4 @@ public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView
         return mFootViews.size();
     }
 
-
-    public void removeAllHeadView() {
-        mHeaderViews.clear();
-    }
 }
