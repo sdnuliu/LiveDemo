@@ -3,19 +3,17 @@ package com.example.liuteng.livedemo.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by liuteng on 2017/3/14.
  */
 
-public class CourseDetailBean implements Parcelable {
+public class CourseDetailBean {
     private String title;
-    private long time;
-    private String popular;
-    private String lecture;
-    private String type;
-    private String lectureInfo;
+    private PartMeetingBean meetinBean;
     private String content;
-    private boolean isSign;
+    private List<PartContentBean> partList;
 
     public String getTitle() {
         return title;
@@ -25,44 +23,12 @@ public class CourseDetailBean implements Parcelable {
         this.title = title;
     }
 
-    public long getTime() {
-        return time;
+    public PartMeetingBean getMeetinBean() {
+        return meetinBean;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public String getPopular() {
-        return popular;
-    }
-
-    public void setPopular(String popular) {
-        this.popular = popular;
-    }
-
-    public String getLecture() {
-        return lecture;
-    }
-
-    public void setLecture(String lecture) {
-        this.lecture = lecture;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLectureInfo() {
-        return lectureInfo;
-    }
-
-    public void setLectureInfo(String lectureInfo) {
-        this.lectureInfo = lectureInfo;
+    public void setMeetinBean(PartMeetingBean meetinBean) {
+        this.meetinBean = meetinBean;
     }
 
     public String getContent() {
@@ -73,55 +39,155 @@ public class CourseDetailBean implements Parcelable {
         this.content = content;
     }
 
-    public boolean isSign() {
-        return isSign;
+    public List<PartContentBean> getPartList() {
+        return partList;
     }
 
-    public void setSign(boolean sign) {
-        isSign = sign;
+    public void setPartList(List<PartContentBean> partList) {
+        this.partList = partList;
     }
 
+    public static class PartMeetingBean implements Parcelable {
+        private long startTime;
+        private long endTime;
+        private String popular;
+        private String lecture;
+        private int type;
+        private String lectureInfo;
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+        public long getStartTime() {
+            return startTime;
+        }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeLong(this.time);
-        dest.writeString(this.popular);
-        dest.writeString(this.lecture);
-        dest.writeString(this.type);
-        dest.writeString(this.lectureInfo);
-        dest.writeString(this.content);
-        dest.writeByte(this.isSign ? (byte) 1 : (byte) 0);
-    }
+        public void setStartTime(long startTime) {
+            this.startTime = startTime;
+        }
 
-    public CourseDetailBean() {
-    }
+        public long getEndTime() {
+            return endTime;
+        }
 
-    protected CourseDetailBean(Parcel in) {
-        this.title = in.readString();
-        this.time = in.readLong();
-        this.popular = in.readString();
-        this.lecture = in.readString();
-        this.type = in.readString();
-        this.lectureInfo = in.readString();
-        this.content = in.readString();
-        this.isSign = in.readByte() != 0;
-    }
+        public void setEndTime(long endTime) {
+            this.endTime = endTime;
+        }
 
-    public static final Parcelable.Creator<CourseDetailBean> CREATOR = new Parcelable.Creator<CourseDetailBean>() {
-        @Override
-        public CourseDetailBean createFromParcel(Parcel source) {
-            return new CourseDetailBean(source);
+        public String getPopular() {
+            return popular;
+        }
+
+        public void setPopular(String popular) {
+            this.popular = popular;
+        }
+
+        public String getLecture() {
+            return lecture;
+        }
+
+        public void setLecture(String lecture) {
+            this.lecture = lecture;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getLectureInfo() {
+            return lectureInfo;
+        }
+
+        public void setLectureInfo(String lectureInfo) {
+            this.lectureInfo = lectureInfo;
         }
 
         @Override
-        public CourseDetailBean[] newArray(int size) {
-            return new CourseDetailBean[size];
+        public int describeContents() {
+            return 0;
         }
-    };
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeLong(this.startTime);
+            dest.writeLong(this.endTime);
+            dest.writeString(this.popular);
+            dest.writeString(this.lecture);
+            dest.writeInt(this.type);
+            dest.writeString(this.lectureInfo);
+        }
+
+        public PartMeetingBean() {
+        }
+
+        protected PartMeetingBean(Parcel in) {
+            this.startTime = in.readLong();
+            this.endTime = in.readLong();
+            this.popular = in.readString();
+            this.lecture = in.readString();
+            this.type = in.readInt();
+            this.lectureInfo = in.readString();
+        }
+
+        public static final Parcelable.Creator<PartMeetingBean> CREATOR = new Parcelable.Creator<PartMeetingBean>() {
+            @Override
+            public PartMeetingBean createFromParcel(Parcel source) {
+                return new PartMeetingBean(source);
+            }
+
+            @Override
+            public PartMeetingBean[] newArray(int size) {
+                return new PartMeetingBean[size];
+            }
+        };
+    }
+
+    public static class PartContentBean {
+        private String title;
+        private long startTime;
+        private long endTime;
+        private String lecture;
+        private List<String> labels;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public long getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(long startTime) {
+            this.startTime = startTime;
+        }
+
+        public long getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(long endTime) {
+            this.endTime = endTime;
+        }
+
+        public String getLecture() {
+            return lecture;
+        }
+
+        public void setLecture(String lecture) {
+            this.lecture = lecture;
+        }
+
+        public List<String> getLabels() {
+            return labels;
+        }
+
+        public void setLabels(List<String> labels) {
+            this.labels = labels;
+        }
+    }
 }

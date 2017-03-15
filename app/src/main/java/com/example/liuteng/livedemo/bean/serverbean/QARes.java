@@ -6,7 +6,7 @@ import java.util.List;
  * Created by liuteng on 2017/3/14.
  */
 
-public class QAResponse {
+public class QARes {
 
     /**
      * ok : 1
@@ -15,7 +15,7 @@ public class QAResponse {
      */
 
     private int ok;
-    private PageBean page;
+    private PageBeanRes page;
     private List<ResultBean> result;
 
     public int getOk() {
@@ -26,11 +26,11 @@ public class QAResponse {
         this.ok = ok;
     }
 
-    public PageBean getPage() {
+    public PageBeanRes getPage() {
         return page;
     }
 
-    public void setPage(PageBean page) {
+    public void setPage(PageBeanRes page) {
         this.page = page;
     }
 
@@ -40,42 +40,6 @@ public class QAResponse {
 
     public void setResult(List<ResultBean> result) {
         this.result = result;
-    }
-
-    public static class PageBean {
-        /**
-         * count : 0
-         * index : 1
-         * size : 10
-         */
-
-        private int count;
-        private int index;
-        private int size;
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        public void setIndex(int index) {
-            this.index = index;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
     }
 
     public static class ResultBean {

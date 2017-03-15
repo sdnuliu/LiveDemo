@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 public class DateUtil {
-    public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm";
 
     // currentTime要转换的long类型的时间
     // formatType要转换的string类型的时间格式
@@ -54,5 +54,10 @@ public class DateUtil {
             e.printStackTrace();
             return date + "";
         }
+    }
+
+    public static long convertSpecial(String starttime) {
+        ///Date(1481095800000+0800)/
+        return Long.parseLong(starttime.substring(6,19));
     }
 }

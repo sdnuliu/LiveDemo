@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by liuteng on 2017/3/10.
  */
 
-public class PageBean {
+public class QaPageBean {
     //问卷id
     private int pageId;
     //问卷状态

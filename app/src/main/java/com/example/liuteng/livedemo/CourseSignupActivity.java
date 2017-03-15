@@ -18,16 +18,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.liuteng.livedemo.base.BaseActivity;
 import com.example.liuteng.livedemo.bean.Answer;
 import com.example.liuteng.livedemo.bean.CourseDetailBean;
-import com.example.liuteng.livedemo.bean.PageBean;
+import com.example.liuteng.livedemo.bean.QaPageBean;
 import com.example.liuteng.livedemo.bean.Quesition;
-import com.example.liuteng.livedemo.bean.serverbean.QAResponse;
+import com.example.liuteng.livedemo.bean.serverbean.SignupUserInfoRes;
 import com.example.liuteng.livedemo.model.QuestionnaireInfo;
+import com.example.liuteng.livedemo.model.ResListener;
+import com.example.liuteng.livedemo.util.DataFormatUtil;
 import com.example.liuteng.livedemo.util.DateUtil;
 import com.example.liuteng.livedemo.util.XlfLog;
 import com.example.liuteng.livedemo.view.TitleView;
@@ -38,7 +41,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Created by 刘腾 on 2017/3/6.
@@ -47,7 +49,7 @@ import java.util.List;
 public class CourseSignupActivity extends BaseActivity {
     private TitleView mTitleView;
     private LinearLayout test_layout;
-    private PageBean the_page;
+    private QaPageBean the_page;
     //答案列表
 //    private ArrayList<Answer> the_answer_list;
     //问题列表
@@ -68,7 +70,7 @@ public class CourseSignupActivity extends BaseActivity {
     private EditText mCompanyEt;
     private EditText mEmailEt;
     private EditText etAnswer;
-    private CourseDetailBean courseDetailBean;
+    private Bundle courseInfo;
     private TextView signUpTitle;
     private TextView signUpData;
     private TextView signUpType;
@@ -77,11 +79,17 @@ public class CourseSignupActivity extends BaseActivity {
     private static final String MUL_SELECT = "CheckBox";
     private static final String SINGLE_SELECT = "Radio";
     private static final String TEXT_SELECT = "Text";
+    private QuestionnaireInfo info;
+    private EditText mAddressEt;
+    private EditText mCodeEt;
+    private LinearLayout signUpLl;
+    private ProgressBar userInfoLoading;
+
 
     @Override
     public void initParms(Bundle parms) {
         if (parms != null) {
-            courseDetailBean = (CourseDetailBean) parms.get("courseInfo");
+             courseInfo = parms.getBundle("courseInfo");
         }
 
     }
@@ -99,40 +107,72 @@ public class CourseSignupActivity extends BaseActivity {
         mMobileEt = $(R.id.et_signup_mobile);
         mCompanyEt = $(R.id.et_signup_company);
         mEmailEt = $(R.id.et_signup_email);
+        mAddressEt = $(R.id.et_signup_address);
+        mCodeEt = $(R.id.et_signup_code);
         signUpTitle = $(R.id.tv_signup_title);
         signUpData = $(R.id.tv_signup_date);
         signUpType = $(R.id.tv_signup_type);
         signUpTeacher = $(R.id.tv_signup_teacher);
         signUpPopular = $(R.id.tv_signup_popular);
+        signUpLl = $(R.id.ll_signup_info);
+        userInfoLoading = $(R.id.pb_loading);
         initCourseInfo();
         mTitleView.title.setText("报名");
         mTitleView.mRightTv.setVisibility(View.VISIBLE);
         mTitleView.mRightTv.setText("提交");
         mTitleView.mRightTv.setOnClickListener(new submitOnClickListener(the_page));
         xInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        info = new QuestionnaireInfo();
     }
 
     private void initCourseInfo() {
-        if (courseDetailBean != null) {
-            signUpTitle.setText(courseDetailBean.getTitle());
-            signUpData.setText("时间：" + DateUtil.longToString(courseDetailBean.getTime()));
-            signUpType.setText(courseDetailBean.getType());
-            signUpTeacher.setText("讲师：" + courseDetailBean.getLecture());
-            signUpPopular.setText("人气：" + courseDetailBean.getPopular());
+        if (courseInfo != null) {
+            signUpTitle.setText(courseInfo.getString("title"));
+            signUpData.setText(courseInfo.getString("date"));
+            signUpType.setText(courseInfo.getString("type"));
+            signUpTeacher.setText(courseInfo.getString("teacher"));
+            signUpPopular.setText(courseInfo.getString("popular"));
         }
     }
 
     @Override
     public void doBusiness(Context mContext) {
-        //假数据  
+        initUserInfo();
         initDate();
     }
 
-    private void initDate() {
-        QuestionnaireInfo info = new QuestionnaireInfo();
-        info.getQuestionInfo("2234", new QuestionnaireInfo.QuesinfoResponse() {
+    private void initUserInfo() {
+        info.getUserInfo("m3194246", new ResListener<SignupUserInfoRes.ResultBean>() {
             @Override
-            public void onSussess(PageBean qaResponse) {
+            public void onSuccess(SignupUserInfoRes.ResultBean resultBean) {
+                signUpLl.setVisibility(View.VISIBLE);
+                userInfoLoading.setVisibility(View.GONE);
+                initEditText(resultBean);
+            }
+
+            @Override
+            public void failed(String message) {
+                signUpLl.setVisibility(View.VISIBLE);
+                userInfoLoading.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void initEditText(SignupUserInfoRes.ResultBean resultBean) {
+        mNameEt.setText(DataFormatUtil.emptyConvert(resultBean.getMid()));
+        mTelEt.setText(DataFormatUtil.emptyConvert(resultBean.getTel()));
+        mMobileEt.setText(DataFormatUtil.emptyConvert(resultBean.getMobile()));
+        mCompanyEt.setText(DataFormatUtil.emptyConvert(resultBean.getCompany()));
+        mEmailEt.setText(DataFormatUtil.emptyConvert(resultBean.getEmail()));
+        mAddressEt.setText(DataFormatUtil.emptyConvert(resultBean.getAddress()));
+        mCodeEt.setText(DataFormatUtil.emptyConvert(resultBean.getPostcode()));
+    }
+
+    private void initDate() {
+
+        info.getQuestionInfo("2234", new ResListener<QaPageBean>() {
+            @Override
+            public void onSuccess(QaPageBean qaResponse) {
                 the_page = qaResponse;
                 initPage(the_page);
             }
@@ -144,7 +184,7 @@ public class CourseSignupActivity extends BaseActivity {
         });
     }
 
-    private void initPage(PageBean the_page) {
+    private void initPage(QaPageBean the_page) {
         //这是要把问题的动态布局加入的布局
         test_layout = (LinearLayout) findViewById(R.id.lly_test);
         TextView page_txt = (TextView) findViewById(R.id.txt_title);
@@ -221,11 +261,6 @@ public class CourseSignupActivity extends BaseActivity {
 
             test_layout.addView(que_view);
         }
-        /*for(int q=0;q<imglist.size();q++){
-            for(int w=0;w<imglist.get(q).size();w++){
-                Log.e("---", "共有------"+imglist.get(q).get(w));
-            }
-        }*/
     }
 
     private void set(TextView txt_que, String content, int type) {
@@ -325,9 +360,9 @@ public class CourseSignupActivity extends BaseActivity {
     }
 
     class submitOnClickListener implements View.OnClickListener {
-        private PageBean page;
+        private QaPageBean page;
 
-        public submitOnClickListener(PageBean page) {
+        public submitOnClickListener(QaPageBean page) {
             this.page = page;
         }
 
